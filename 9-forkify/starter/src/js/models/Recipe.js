@@ -64,14 +64,14 @@ export default class Recipe {
                 objIng={
                     count,
                     unit:arrIng[unitIndex],
-                    ingredient:arrIng.slice(unitIndex + 1).join('')
+                    ingredient:arrIng.slice(unitIndex + 1).join(' ')
                 }
             } else if (parseInt(arrIng[0], 10)) {
                 //there is a No Unit, but 1st element is a umber 
                 objIng = {
                     count: parseInt(arrIng[0], 10),
                     unit: '',
-                    ingredient: arrIng.slice(1).join('')
+                    ingredient: arrIng.slice(1).join(' ')
                 }
             } else if (unitIndex === -1) {
                 //there is no unit, and no number in 1st position 
