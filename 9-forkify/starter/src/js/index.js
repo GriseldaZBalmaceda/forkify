@@ -1,5 +1,6 @@
 import Search from './models/Search';
 import * as searchView from './views/searchView'
+import * as recipeView from './views/recipeView'
 import * as base from  './views/base'
 import Recipe from './models/Recipe'
 
@@ -70,16 +71,25 @@ console.log(id)
 //if id is clicked 
 if(id){
 //prepare ui to changes
+base.renderLoader(base.elements.recipe);
 //create new recipe object
 state.recipe=new Recipe(id)
-window.r=state.recipe
+
 //get recipe data 
 try{
  await state.recipe.getRecipe();
+
+ state.recipe.parseIngredients();
 //calc servings and time 
 state.recipe.calcTime();
 state.recipe.calcServings();
+
+ base.clearLoader();
+
 //render recipe 
+
+recipeView.renderRecipe(state.recipe)
+
 console.log(state.recipe) 
 }
 catch(err){
