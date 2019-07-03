@@ -1,6 +1,4 @@
-import {
-    elements
-} from './base'
+import {elements} from './base'
 export const clearInput = () => elements.searchInput.value = "";
 export const clearResults = () => {
     elements.searchResultList.innerHTML = " ",
