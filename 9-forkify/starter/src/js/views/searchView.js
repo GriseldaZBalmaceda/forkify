@@ -65,3 +65,11 @@ export const renderResults = (recipes, page=1, resPerPage = 10) => {
     recipes.slice(start, end).forEach(renderRecipe)
     renderButtons(page,recipes.length,resPerPage)
 }
+export const highlightSelected = id=>{
+    const resultsArr = Array.from(document.querySelectorAll('.results__link'));
+    resultsArr.forEach(el=>{
+el.classList.remove('results_link--active');
+    })
+  
+    document.querySelector(`a[href*="${id}"]`).classList.add('results__link--active')
+}
