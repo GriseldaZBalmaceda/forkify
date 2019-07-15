@@ -14,7 +14,7 @@ import List from './models/List'
  */
 
 const state = {};
-
+window.state=state;
 ///Search Controller
 const controlSearch = async () => {
   //1)get query from view
@@ -127,6 +127,21 @@ const controlList=()=>{
   })
 
 }
+
+//handle delete and update list item events
+base.elements.shopping.addEventListener('click',e=>{
+  const id = e.target.closest('.shopping__item').dataset.itemid;
+
+  //handle delete button
+  if(e.target.matches('.shopping __delete')){
+    console.log('trying to delete')
+    //delete from state 
+state.list.deleteItem(id)
+    //delete from ui
+    listView.deleteItem(id)
+
+  }
+})
 
 //handling recipe button clicks 
 base.elements.recipe.addEventListener('click', e => {
