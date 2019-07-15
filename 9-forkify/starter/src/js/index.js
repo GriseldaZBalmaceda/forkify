@@ -1,8 +1,10 @@
 import Search from './models/Search';
 import * as searchView from './views/searchView'
 import * as recipeView from './views/recipeView'
+import * as listView from './views/listView'
 import * as base from './views/base'
 import Recipe from './models/Recipe'
+import List from './models/List'
 
 /**Global state of the app 
  * -Sarch Objectcdscsd
@@ -12,6 +14,7 @@ import Recipe from './models/Recipe'
  */
 
 const state = {};
+
 ///Search Controller
 const controlSearch = async () => {
   //1)get query from view
@@ -19,6 +22,7 @@ const controlSearch = async () => {
   if (query) {
     //2)  new search object and add it to state
     state.search = new Search(query);
+    console.log(state.search)
     //3 clear UI 
     searchView.clearInput();
     searchView.clearResults();
@@ -67,7 +71,7 @@ base.elements.searchResPages.addEventListener('click', e => {
 const controlRecipe = async () => {
   //getting id
   const id = window.location.hash.replace('#', '');
-  console.log(id)
+  
   //if id is clicked 
   if (id) {
     recipeView.clearRecipe();
@@ -96,7 +100,6 @@ const controlRecipe = async () => {
 
       recipeView.renderRecipe(state.recipe)
 
-      console.log(state.recipe)
     } catch (err) {
       alert('error processing recipe')
     }
@@ -107,13 +110,34 @@ const controlRecipe = async () => {
 // window.addEventListener('load',controlRecipe);
 ['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe));
 
+
+/**
+ * List Controller
+ */
+const controlList=()=>{
+  if(!state.list)state.list = new List();
+  console.log(state.list)
+
+
+  //add each ingredient to the lsit 
+  state.recipe.ingredients.forEach(el=>{
+    const item = state.list.addItem(el.count,el.unit,el.ingredient);
+    console.log(item)
+    listView.renderItem(item);
+  })
+
+}
+
 //handling recipe button clicks 
 base.elements.recipe.addEventListener('click', e => {
   if (e.target.matches('.btn-decrease')) {
     state.recipe.updateServings('dec')
   } else if (e.target.matches('.btn-increase')) {
     state.recipe.updateServings('inc')
+  }else if (e.target.matches('.recipe__btn--add,.recipe.btn--add *')){
+    controlList();
   }
-  console.log(state.recipe)
 
 })
+
+

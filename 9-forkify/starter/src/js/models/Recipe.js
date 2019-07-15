@@ -1,11 +1,6 @@
 import axios from 'axios';
-import {
-    key,
-    proxy
-} from '../config'
-import {
-    isBuffer
-} from 'util';
+import { key,proxy} from '../config'
+import {isBuffer} from 'util';
 import { timingSafeEqual } from 'crypto';
 
 export default class Recipe {
@@ -22,8 +17,10 @@ export default class Recipe {
             this.url = res.data.recipe.url;
             this.publisher = res.data.publisher;
             this.ingredients = res.data.recipe.ingredients;
+            console.log(res)
         } catch (error) {
             console.log(error)
+            console.log('couldnt get recipe')
         }
 
     }
